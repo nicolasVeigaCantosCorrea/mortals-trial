@@ -6,8 +6,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(129, 130)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(133, 132)
+
 [node name="EnemyBasic" type="CharacterBody2D" unique_id=501036413]
+process_mode = 1
 script = ExtResource("1_g2x43")
+max_health = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=223614748]
 modulate = Color(0.98056763, 6.3532593e-06, 1.1551381e-06, 1)
@@ -16,3 +21,14 @@ texture = ExtResource("1_20uc5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=317764157]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=524850507]
+autostart = true
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1044223381]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=664933003]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

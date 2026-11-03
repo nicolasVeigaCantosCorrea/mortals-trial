@@ -34,3 +34,8 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=191346383]
 position = Vector2(9, -9)
 shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1083700248]
+autostart = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
