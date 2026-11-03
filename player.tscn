@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://xn3kraxybflc"]
+
+[ext_resource type="Script" uid="uid://cyh2y0lufjbjb" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://d3j5f2cxnwlgd" path="res://icon.svg" id="2_onrkg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(50, 59)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 67.00746
+
+[node name="Player" type="CharacterBody2D" unique_id=2058775608]
+script = ExtResource("1_4flbx")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1213324128]
+position = Vector2(89.915, -9)
+scale = Vector2(0.12216677, 0.12567745)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-561.567, -41.65646, -123.29137, -41.65646, -123.29137, 40.98982, -564.0714, 40.98982)
+uv = PackedVector2Array(-439.99973, -18.666656, -245.5553, -18.666656, -245.5553, 18.000015, -441.11084, 18.000015)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=652516919]
+position = Vector2(9, -11.5)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=435293527]
+position = Vector2(8.874999, -11.812502)
+scale = Vector2(0.3769531, 0.4560547)
+texture = ExtResource("2_onrkg")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1035458299]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=191346383]
+position = Vector2(9, -9)
+shape = SubResource("CircleShape2D_g4v7s")
