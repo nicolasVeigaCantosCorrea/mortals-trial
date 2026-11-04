@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://der2vs6dljjh8"]
+
+[ext_resource type="Script" uid="uid://fantgcjls7xy" path="res://resources/scripts/character_stats.gd" id="1_1prpi"]
+[ext_resource type="Texture2D" uid="uid://d3j5f2cxnwlgd" path="res://icon.svg" id="2_wtfrw"]
+
+[resource]
+script = ExtResource("1_1prpi")
+max_health = 3
+attack_power = 1
+move_speed = 150.0
+sprite = ExtResource("2_wtfrw")

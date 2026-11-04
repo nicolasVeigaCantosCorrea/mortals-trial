@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b4wxf8rp4kig5"]
+
+[ext_resource type="Script" uid="uid://ijl18dseqai5" path="res://scenes/enemy/enemy_basic.gd" id="1_g2x43"]
+[ext_resource type="Script" uid="uid://dgrhabbc4x85b" path="res://components/health_component.gd" id="1_viy2q"]
+[ext_resource type="Resource" uid="uid://der2vs6dljjh8" path="res://scenes/enemy/slime.tres" id="2_53gmt"]
+[ext_resource type="PackedScene" uid="uid://c7oc1cevvsipt" path="res://components/attacks/sweep_attack.tscn" id="4_0c83a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(129, 130)
+
+[node name="EnemyBasic" type="CharacterBody2D" unique_id=501036413]
+process_mode = 1
+motion_mode = 1
+script = ExtResource("1_g2x43")
+stats = ExtResource("2_53gmt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=223614748]
+modulate = Color(0.98056763, 6.3532593e-06, 1.1551381e-06, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=317764157]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1788790553]
+script = ExtResource("1_viy2q")
+
+[node name="SweepAttack" parent="." unique_id=1638656136 instance=ExtResource("4_0c83a")]
+scale = Vector2(2.065, 2.065)
+target_mask = 1

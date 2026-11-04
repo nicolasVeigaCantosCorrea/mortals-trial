@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://b4p36evback6f"]
 
-[ext_resource type="Script" uid="uid://dkvbdpcwhkg5s" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://xn3kraxybflc" path="res://player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://b4wxf8rp4kig5" path="res://enemy_basic.tscn" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://dkvbdpcwhkg5s" path="res://scenes/main/main.gd" id="1_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://b4wxf8rp4kig5" path="res://scenes/enemy/enemy_basic.tscn" id="2_l3cfh"]
+[ext_resource type="PackedScene" uid="uid://xn3kraxybflc" path="res://scenes/player/player.tscn" id="3_6q06x"]
 
 [sub_resource type="Image" id="Image_h2yge"]
 data = {
@@ -670,15 +670,12 @@ cache/0/40/0/scale = 1.0
 
 [node name="Main" type="Node2D" unique_id=151280734]
 process_mode = 3
-script = ExtResource("1_h2yge")
-run_time = 5.0
-enemy_scene = ExtResource("3_1bvp3")
+script = ExtResource("1_k2fmo")
+enemy_scene = ExtResource("2_l3cfh")
 
-[node name="Player" parent="." unique_id=2058775608 instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="." unique_id=2058775608 instance=ExtResource("3_6q06x")]
 process_mode = 1
 position = Vector2(576, 324)
-max_health = 1
-attack_damage = 0
 
 [node name="SurvivalTimer" type="Timer" parent="." unique_id=1363340377]
 wait_time = 60.0

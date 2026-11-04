@@ -1,16 +1,18 @@
 [gd_scene format=3 uid="uid://xn3kraxybflc"]
 
-[ext_resource type="Script" uid="uid://cyh2y0lufjbjb" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://cyh2y0lufjbjb" path="res://scenes/player/player.gd" id="1_4flbx"]
+[ext_resource type="Resource" uid="uid://bedv5obsms7s8" path="res://scenes/player/player.tres" id="2_gmlin"]
 [ext_resource type="Texture2D" uid="uid://d3j5f2cxnwlgd" path="res://icon.svg" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://dgrhabbc4x85b" path="res://components/health_component.gd" id="4_lvxji"]
+[ext_resource type="PackedScene" uid="uid://c7oc1cevvsipt" path="res://components/attacks/sweep_attack.tscn" id="5_p47bc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(50, 59)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 67.00746
-
 [node name="Player" type="CharacterBody2D" unique_id=2058775608]
+motion_mode = 1
 script = ExtResource("1_4flbx")
+stats = ExtResource("2_gmlin")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1213324128]
 position = Vector2(89.915, -9)
@@ -28,14 +30,9 @@ position = Vector2(8.874999, -11.812502)
 scale = Vector2(0.3769531, 0.4560547)
 texture = ExtResource("2_onrkg")
 
-[node name="AttackArea" type="Area2D" parent="." unique_id=1035458299]
-collision_layer = 0
+[node name="HealthComponent" type="Node" parent="." unique_id=1196332648]
+script = ExtResource("4_lvxji")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=191346383]
+[node name="SweepAttack" parent="." unique_id=1638656136 instance=ExtResource("5_p47bc")]
 position = Vector2(9, -9)
-shape = SubResource("CircleShape2D_g4v7s")
-
-[node name="AttackTimer" type="Timer" parent="." unique_id=1083700248]
-autostart = true
-
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+target_mask = 2

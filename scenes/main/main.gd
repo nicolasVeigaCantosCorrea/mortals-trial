@@ -17,7 +17,7 @@ func start_run() -> void:
 	is_run_finished = false
 	spawn_enemy()
 	survival_timer.start(run_time)
-	player.died.connect(_on_player_death)
+	player.player_death.connect(_on_player_death)
 		
 func end_run() -> void:
 	result_label.show()
