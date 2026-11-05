@@ -1,0 +1,71 @@
+name: Release
+run-name: Release of ${{ github.ref_name }} by @${{ github.actor }}
+on:
+  workflow_dispatch:
+    inputs:
+        platform:
+            description: 'Platform to export'
+            required: true
+            default: windows
+            type: choice
+            options:
+              - windows
+              - linux
+              - mac
+              - all
+
+permissions:
+  contents: write
+  actions: read
+
+env:
+    GAME_NAME: MortalSurvivor
+
+
+jobs:
+  export-windows:
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'windows' }}
+    uses: ./.github/workflows/export-game.yml
+    with:
+      platform: windows
+      preset: "Windows Desktop"
+      extension: exe
+      game_name: MortalSurvivor
+
+  export-linux:
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'linux' }}
+    uses: ./.github/workflows/export-game.yml
+    with:
+      platform: linux
+      preset: "Linux/X11"
+      extension: x86_64
+      game_name: MortalSurvivor
+
+  export-mac:
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'mac' }}
+    uses: ./.github/workflows/export-game.yml
+    with:
+      platform: mac
+      preset: "macOS"
+      extension: zip
+      game_name: MortalSurvivor
+
+  release:
+      if: startsWith(github.ref, 'refs/tags/v')
+      needs: [export-windows, export-linux, export-mac]
+      runs-on: ubuntu-latest
+      steps:
+      - name: download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: create release
+        uses: ncipollo/release-action@v1.21.0
+        with:
+          tag: ${{ github.ref_name }}
+          name: ${{ env.GAME_NAME }} ${{ github.ref_name }}
+          artifacts: artifacts/**/*.zip
+          allowUpdates: true
+          removeArtifacts: true
+    
