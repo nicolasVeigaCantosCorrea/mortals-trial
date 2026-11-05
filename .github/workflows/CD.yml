@@ -21,7 +21,6 @@ permissions:
 env:
     GAME_NAME: MortalSurvivor
 
-
 jobs:
   export-windows:
     if: ${{ inputs.platform == 'all' || inputs.platform == 'windows' }}
