@@ -29,29 +29,38 @@ jobs:
       image: barichello/godot-ci:4.7.2
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+        - name: Checkout repository
+          uses: actions/checkout@v6
 
-      - name: Import game assets
-        run: godot --headless --path . --import
+        - name: Import game assets
+          run: godot --headless --path . --import
 
-      - name: Create build directory
-        run: mkdir -p build/${{ inputs.game_name }}-${{ inputs.platform }}
+        - name: Create build directory
+          run: mkdir -p build/${{ inputs.game_name }}-${{ inputs.platform }}
 
-      - name: Export game
-        run: |
-          godot --headless --path . --verbose \
+
+        - name: Setup export templates
+          run: |
+            mkdir -p "$HOME/.local/share/godot/export_templates"
+
+            cp -r /root/.local/share/godot/export_templates/4.7.2.stable \
+            "$HOME/.local/share/godot/export_templates/"
+
+
+        - name: Export game
+          run: |
+            godot --headless --path . --verbose \
             --export-release "${{ inputs.preset }}" \
             build/${{ inputs.game_name }}-${{ inputs.platform }}/${{ inputs.game_name }}.${{ inputs.extension }}
 
-      - name: Zip build
-        run: |
-          zip -r ${{ inputs.game_name }}-${{ inputs.platform }}.zip \
+        - name: Zip build
+          run: |
+            zip -r ${{ inputs.game_name }}-${{ inputs.platform }}.zip \
             build/${{ inputs.game_name }}-${{ inputs.platform }}/
 
-      - name: Upload game artifact
-        uses: actions/upload-artifact@v7.0.1
-        with:
-          name: ${{ inputs.game_name }}-${{ inputs.platform }}
-          path: ${{ inputs.game_name }}-${{ inputs.platform }}.zip
-          if-no-files-found: error
+        - name: Upload game artifact
+          uses: actions/upload-artifact@v7.0.1
+          with:
+            name: ${{ inputs.game_name }}-${{ inputs.platform }}
+            path: ${{ inputs.game_name }}-${{ inputs.platform }}.zip
+            if-no-files-found: error
