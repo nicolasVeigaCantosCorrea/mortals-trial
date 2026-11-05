@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var sweep_attack: SweepAttack = $SweepAttack
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 signal player_death
 
@@ -22,6 +23,15 @@ func _physics_process(delta: float) -> void:
 		"move_down"
 	)
 	
+	if direction:
+		animated_sprite.play("walk")
+		if direction.x < 0:
+			animated_sprite.flip_h = true
+		elif direction.x > 0: 
+			animated_sprite.flip_h = false
+	else:
+		animated_sprite.stop()
+		
 	velocity = direction * stats.move_speed
 	move_and_slide()
 

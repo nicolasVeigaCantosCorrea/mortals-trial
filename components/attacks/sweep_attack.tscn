@@ -1,13 +1,30 @@
 [gd_scene format=3 uid="uid://c7oc1cevvsipt"]
 
 [ext_resource type="Script" uid="uid://dreyfmoespbrn" path="res://components/attacks/sweep_attack.gd" id="1_o8w58"]
+[ext_resource type="Texture2D" uid="uid://d0nphosnvkm5f" path="res://components/attacks/crimson_slash.png" id="2_bu12q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 49.0
 
+[sub_resource type="Curve" id="Curve_0a44n"]
+_data = [Vector2(0.3157098, 1), 0.0, 0.0, 0, 0, Vector2(0.8217521, 0.9132656), 0.0, 0.0, 0, 0, Vector2(1, 0.045918703), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bu12q"]
+curve = SubResource("Curve_0a44n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g4v7s"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 120.0
+initial_velocity_max = 135.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+scale_curve = SubResource("CurveTexture_bu12q")
+
 [node name="SweepAttack" type="Node2D" unique_id=1638656136]
 script = ExtResource("1_o8w58")
-attack_radius = 300.0
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=19308714]
 wait_time = 0.5
@@ -17,5 +34,14 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1313681154]
 shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="Explosion" type="GPUParticles2D" parent="." unique_id=2102473207]
+emitting = false
+amount = 6
+texture = ExtResource("2_bu12q")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_g4v7s")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_timer_timeout"]

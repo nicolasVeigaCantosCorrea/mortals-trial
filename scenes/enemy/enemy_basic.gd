@@ -1,7 +1,7 @@
 class_name EnemyBasic
 extends CharacterBody2D
 
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_component : HealthComponent = $HealthComponent
 @onready var sweep_attack: SweepAttack = $SweepAttack
 @export var stats : CharacterStats
@@ -12,13 +12,10 @@ signal enemy_died
 
 func _ready() -> void:
 	health_component.initialize(stats.max_health)
-	print("[ENEMY] Stats texture: ", stats.sprite)
-	print("[ENEMY] Texture path: ",
-		stats.sprite.resource_path if stats.sprite != null else "NULL")
-	sprite.texture = stats.sprite
 	health_component.died.connect(_die)
 	
 	sweep_attack.initialize(stats.attack_power)
+	animated_sprite.play("jump")
 
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(target):

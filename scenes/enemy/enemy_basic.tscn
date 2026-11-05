@@ -4,26 +4,75 @@
 [ext_resource type="Script" uid="uid://dgrhabbc4x85b" path="res://components/health_component.gd" id="1_viy2q"]
 [ext_resource type="Resource" uid="uid://der2vs6dljjh8" path="res://scenes/enemy/slime.tres" id="2_53gmt"]
 [ext_resource type="PackedScene" uid="uid://c7oc1cevvsipt" path="res://components/attacks/sweep_attack.tscn" id="4_0c83a"]
+[ext_resource type="Texture2D" uid="uid://cgmw43af27ni1" path="res://scenes/enemy/slime_jump.png" id="5_natd6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(129, 130)
+[sub_resource type="CircleShape2D" id="CircleShape2D_natd6"]
+radius = 31.79
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egi4d"]
+atlas = ExtResource("5_natd6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f0fa"]
+atlas = ExtResource("5_natd6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_073n3"]
+atlas = ExtResource("5_natd6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_erjr6"]
+atlas = ExtResource("5_natd6")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4evmr"]
+atlas = ExtResource("5_natd6")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_egi4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8f0fa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_073n3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_erjr6")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_4evmr")
+}],
+"loop": 1,
+"name": &"jump",
+"speed": 7.0
+}]
 
 [node name="EnemyBasic" type="CharacterBody2D" unique_id=501036413]
 process_mode = 1
+position = Vector2(207, 141)
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_g2x43")
 stats = ExtResource("2_53gmt")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=223614748]
-modulate = Color(0.98056763, 6.3532593e-06, 1.1551381e-06, 1)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=317764157]
 position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_g4v7s")
+shape = SubResource("CircleShape2D_natd6")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1788790553]
 script = ExtResource("1_viy2q")
 
 [node name="SweepAttack" parent="." unique_id=1638656136 instance=ExtResource("4_0c83a")]
-scale = Vector2(2.065, 2.065)
+scale = Vector2(0.71, 0.71)
 target_mask = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1785782429]
+scale = Vector2(2.9296875, 2.9296875)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"jump"
+frame_progress = 0.24494515

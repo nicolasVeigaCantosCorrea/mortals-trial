@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://bedv5obsms7s8"]
 
 [ext_resource type="Script" uid="uid://fantgcjls7xy" path="res://resources/scripts/character_stats.gd" id="1_nky0w"]
+[ext_resource type="Texture2D" uid="uid://d3j5f2cxnwlgd" path="res://icon.svg" id="2_ip871"]
 
 [resource]
 script = ExtResource("1_nky0w")
 max_health = 5
 attack_power = 2
 move_speed = 200.0
+sprite = ExtResource("2_ip871")
